@@ -142,7 +142,7 @@ app.post('/api/process', async (req, res) => {
         `;
 
         const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
+          model: 'gemini-2.0-flash',
           contents: prompt
         });
 
@@ -258,6 +258,15 @@ app.get('/api/job/:id', (req, res) => {
 });
 
 app.use('/videos', express.static(TEMP_DIR));
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', time: new Date().toISOString() });
+});
+
+// Explicitly handle 404 for API routes to avoid returning HTML
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ error: `API endpoint ${req.originalUrl} not found` });
+});
 
 async function startServer() {
   const PORT = 3000;

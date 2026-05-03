@@ -202,14 +202,37 @@ export default function App() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-neutral-400 mb-2">Backend Server URL</label>
-                <input 
-                  type="text" 
-                  value={serverUrl}
-                  onChange={e => setServerUrl(e.target.value)}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-indigo-500 transition-colors text-neutral-300"
-                  placeholder="https://your-backend.com"
-                />
-                <p className="text-xs text-neutral-500 mt-2">Dùng khi chạy trên mobile app (APK) để trỏ về API server.</p>
+                <div className="flex gap-2">
+                  <input 
+                    type="text" 
+                    value={serverUrl}
+                    onChange={e => setServerUrl(e.target.value)}
+                    className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-indigo-500 transition-colors text-neutral-300"
+                    placeholder="https://your-backend.com"
+                  />
+                  <button 
+                    onClick={() => setServerUrl(window.location.origin)}
+                    className="px-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium transition-colors"
+                    title="Lấy URL hiện tại"
+                  >
+                    Auto
+                  </button>
+                </div>
+                <button 
+                  onClick={async () => {
+                    try {
+                      const res = await fetch(`${serverUrl}/api/health`);
+                      if (res.ok) alert("Kết nối thành công! ✅");
+                      else alert(`Lỗi: ${res.status} ❌`);
+                    } catch (e) {
+                      alert("Không thể kết nối tới server ❌");
+                    }
+                  }}
+                  className="text-xs text-indigo-400 mt-2 hover:underline"
+                >
+                  Kiểm tra kết nối
+                </button>
+                <p className="text-[10px] text-neutral-500 mt-1">Dùng link Development App URL hoặc Shared App URL của AI Studio.</p>
               </div>
 
               <div>
