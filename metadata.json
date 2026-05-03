@@ -1,0 +1,6 @@
+{
+  "name": "AutoReviewX - AI Movie Review Generator",
+  "description": "Ứng dụng tự động hóa quy trình tạo video review phim cho TikTok/Reels sử dụng Gemini AI và ElevenLabs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["AI Script Generation", "Automated Video Editing", "Text-to-Speech Integration"]
+}
